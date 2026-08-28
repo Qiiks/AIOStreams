@@ -136,6 +136,12 @@ export const rateLimitsSchema = {
     envPrefix: 'LINKED_ACCOUNTS_API',
     label: 'linked accounts API',
   }),
+  communityApi: rateLimit({
+    windowDefault: 60,
+    maxDefault: 60,
+    envPrefix: 'COMMUNITY_API',
+    label: 'community API',
+  }),
   login: rateLimit({
     windowDefault: 300,
     maxDefault: 5,

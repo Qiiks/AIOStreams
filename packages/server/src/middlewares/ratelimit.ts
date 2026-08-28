@@ -152,9 +152,15 @@ const staticRateLimiter = lazyLimiter(
   'static'
 );
 
+const communityApiRateLimiter = lazyLimiter(
+  () => appConfig.rateLimits.communityApi,
+  'community-api'
+);
+
 export {
   userApiRateLimiter,
   linkedAccountsRateLimiter,
+  communityApiRateLimiter,
   streamApiRateLimiter,
   formatApiRateLimiter,
   catalogApiRateLimiter,
