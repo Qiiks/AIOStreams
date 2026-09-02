@@ -2,7 +2,8 @@ const MEDIA_EXTENSIONS =
   /\.(mkv|mp4|avi|mov|wmv|flv|webm|m4v|mpg|mpeg|ts|m2ts|iso)/gi;
 
 /** Residue markers appended by some HTTP providers after the real extension. */
-const RESIDUE_MARKER = /~\d+(?:\.\d+)?mbps|\.pad-/i;
+const RESIDUE_MARKER =
+  /(?:~\d+(?:\.\d+)?mbps)|(?:(?:mkv|mp4|avi|webm|bluray|web-?dl|x264|x265|hevc|av1|\d{3,4}p)[a-z0-9.+-]*\.pad-)/i;
 
 /**
  * Strip provider-appended media-info residue from a release filename.
@@ -35,7 +36,7 @@ export function stripProviderResidue(filename: string): string {
   //   "Show.2022.<32-hex>1080pMKVWEB-DL...~5.8Mbps....pad-X"
   // Cut at the hex token when a container/bitrate marker follows it.
   const hashGlue =
-    /\.[a-f0-9]{16,}(?=[0-9]{3,4}(?:p)?(?:MKV|MP4|WEB|BLURAY)|~)/i;
+    /\.[a-f0-9]{16,}(?=[0-9]{3,4}(?:p)?(?:MKV|MP4|WEB|BLURAY)|~\d+(?:\.\d+)?mbps)/i;
   const hashMatch = hashGlue.exec(filename);
   if (hashMatch) return filename.slice(0, hashMatch.index);
   return filename;
